@@ -668,12 +668,11 @@ window.html10n = (function(window, document, undefined) {
     if ('string' == typeof langs) langs = [langs]
 
     // Expand two-part locale specs
-    var i=0
-    langs.forEach(function(lang) {
-      if(!lang) return
-      langs[i++] = lang
-      if(~lang.indexOf('-')) langs[i++] = lang.substr(0, lang.indexOf('-'))
-    })
+    langs.forEach(function(lang, i) {
+      if (lang && lang.indexOf('-') !== -1) {
+        langs[i] = lang.substr(0, lang.indexOf('-'));
+      }
+    });
 
     this.build(langs, function(er, translations) {
       html10n.translations = translations
